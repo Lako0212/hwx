@@ -1,4 +1,4 @@
-FROM itatscale/hwx-common:developement
+FROM itatscale/hwx-common:dev
 MAINTAINER itatscale
 
 # add ambari repo
