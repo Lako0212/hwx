@@ -1,5 +1,5 @@
-FROM hortonworks/ambari-base:7.2-v7
-MAINTAINER Hortonworks
+FROM itatscale/hwx-common:dev
+MAINTAINER itatscale
 
 # add ambari repo
 ADD ambari.repo /etc/yum.repos.d/
