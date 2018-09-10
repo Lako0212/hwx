@@ -1,7 +1,7 @@
 FROM itatscale/hwx-common:dev
 MAINTAINER itatscale
 
-# add ambari repo
+## add ambari repo
 ADD ambari.repo /etc/yum.repos.d/
 
 RUN yum install -y  ambari-agent && yum clean all
