@@ -13,6 +13,10 @@ ADD shell/install-cluster.sh /tmp/
 ADD shell/wait-for-host-number.sh /tmp/
 ADD shell/ambari-shell.sh /tmp/
 
+# add certs for ambari
+ADD security/certs/ams.it-atscale.key /etc/security/certs/ams.it-atscale.key
+ADD security/certs/ams.it-atscale.crt /etc/security/certs/ams.it-atscale.crt
+
 ENV PLUGIN_PATH /plugins
 WORKDIR /tmp
 
