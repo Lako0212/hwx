@@ -19,7 +19,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
-# RUN yum install -y systemd* && yum clean all
+RUN yum install -y systemd* && yum clean all
 
 RUN yum install -y yum-utils yum-plugin-ovl tar git curl bind-utils unzip wget && yum clean all
 
