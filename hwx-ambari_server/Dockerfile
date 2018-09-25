@@ -32,6 +32,6 @@ RUN systemctl enable ambari-server
 
 RUN echo DefaultEnvironment=\"JAVA_HOME=$JAVA_HOME\" >> /etc/systemd/system.conf
 
-RUN /opt/ambari-server/init-server.sh
+ENTRYPOINT ["/opt/ambari-server/init-server.sh"]
 
 EXPOSE 8443
