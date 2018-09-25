@@ -28,10 +28,10 @@ ADD http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.39.t
 ADD https://jdbc.postgresql.org/download/postgresql-9.4.1208.jre7.jar /var/lib/ambari-server/resources/postgres-jdbc-driver.jar
 
 # ADD init/ambari-server.service /etc/systemd/system/ambari-server.service
-RUN systemctl enable ambari-server
+# RUN systemctl enable ambari-server
 
 RUN echo DefaultEnvironment=\"JAVA_HOME=$JAVA_HOME\" >> /etc/systemd/system.conf
 
-# ENTRYPOINT ["/opt/ambari-server/init-server.sh"]
+ENTRYPOINT ["/opt/ambari-server/init-server.sh"]
 
 EXPOSE 8443
