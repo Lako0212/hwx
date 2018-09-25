@@ -1,21 +1,6 @@
 FROM itatscale/hwx-common:dev
 MAINTAINER itatscale
 
-
-ENV container docker
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
-systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
-VOLUME [ "/sys/fs/cgroup" ]
-VOLUME [ "/run" ]
-CMD ["/usr/sbin/init"]
-
 # add ambari repo
 ADD ambari.repo /etc/yum.repos.d/
 
@@ -42,8 +27,8 @@ RUN chmod u+x /opt/ambari-server/init-server.sh
 ADD http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.39.tar.gz /var/lib/ambari-server/resources/mysql-jdbc-driver.jar
 ADD https://jdbc.postgresql.org/download/postgresql-9.4.1208.jre7.jar /var/lib/ambari-server/resources/postgres-jdbc-driver.jar
 
-# ADD init/ambari-server.service /etc/systemd/system/ambari-server.service
-# RUN systemctl enable ambari-server
+ADD init/ambari-server.service /etc/systemd/system/ambari-server.service
+RUN systemctl enable ambari-server
 
 RUN echo DefaultEnvironment=\"JAVA_HOME=$JAVA_HOME\" >> /etc/systemd/system.conf
 
