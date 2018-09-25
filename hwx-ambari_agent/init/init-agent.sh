@@ -2,7 +2,7 @@
 
 : ${CLOUD_PLATFORM:="none"}
 : ${USE_CONSUL_DNS:="true"}
-: ${AMBARI_SERVER_ADDR:="ambari-8080.service.consul"}
+: ${AMBARI_SERVER_ADDR:="ams.hadoop.it-atscale.svc.cluster.local"}
 
 [[ "TRACE" ]] && set -x
 
@@ -26,12 +26,12 @@ get_nameserver_addr() {
 # sed -i /etc/resolf.conf fails:
 # sed: cannot rename /etc/sedU9oCRy: Device or resource busy
 # here comes the tempfile workaround ...
-local_nameserver() {
-  cat>/etc/resolv.conf<<EOF
-nameserver $(get_nameserver_addr)
-search service.consul node.dc1.consul
-EOF
-}
+#local_nameserver() {
+#  cat>/etc/resolv.conf<<EOF
+#nameserver $(get_nameserver_addr)
+#search service.consul node.dc1.consul
+#EOF
+#}
 
 ambari_server_addr() {
   sed -i "s/^hostname=.*/hostname=${AMBARI_SERVER_ADDR}/" /etc/ambari-agent/conf/ambari-agent.ini
@@ -39,16 +39,16 @@ ambari_server_addr() {
 
 # GCP overrides the /etc/hosts file with its internal hostname, so we need to change the
 # order of the host resolution to try the DNS first
-reorder_dns_lookup() {
-  if [ "$CLOUD_PLATFORM" == "GCP" ] || [ "$CLOUD_PLATFORM" == "GCC" ]; then
-    sed -i "/^hosts:/ s/ *files dns/ dns files/" /etc/nsswitch.conf
-  fi
-}
+#reorder_dns_lookup() {
+#  if [ "$CLOUD_PLATFORM" == "GCP" ] || [ "$CLOUD_PLATFORM" == "GCC" ]; then
+#    sed -i "/^hosts:/ s/ *files dns/ dns files/" /etc/nsswitch.conf
+#  fi
+#}
 
 main() {
-  [[ "$USE_CONSUL_DNS" == "true" ]] && local_nameserver
+  #[[ "$USE_CONSUL_DNS" == "true" ]] && local_nameserver
   ambari_server_addr
-  reorder_dns_lookup
+  #reorder_dns_lookup
 }
 
 main "$@"
