@@ -2,7 +2,7 @@
 
 : ${CLOUD_PLATFORM:="none"}
 : ${USE_CONSUL_DNS:="true"}
-: ${AMBARI_SERVER_ADDR:="ams.hadoop.it-atscale.svc.cluster.local"}
+: ${AMBARI_SERVER_ADDR:="ambari-server.it-atscale.svc.cluster.local"}
 
 [[ "TRACE" ]] && set -x
 
